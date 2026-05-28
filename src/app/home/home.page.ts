@@ -1,35 +1,62 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonContent, IonHeader, IonTitle, IonToolbar,IonButton, IonItem,IonList, IonLabel, IonInput } from '@ionic/angular/standalone';
 import { Task } from '../models/task.models';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
+  standalone: true,
+  imports: [IonContent, IonHeader ,IonLabel ,IonList, IonTitle,IonButton, IonToolbar, CommonModule, FormsModule, IonItem, IonLabel, IonInput]
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
-  // arreglo de tareas
+  newTaskStr: string = '';
+
   tasks: Task[] = [
     {
       id: 1,
-      titulo: 'Configuracion ionic',
-      descripcion: 'Instalar Node.js, Angular CLI',
+      titulo: "Configuración de Ionic",
+      descripcion: "Instalar Node.js, AngularCli, Ionic",
       finalizado: true,
-      prioridad: 'Alta'
+      prioridad: "Alta"
     },
     {
       id: 2,
-      titulo: 'Configurar proyecto',
-      descripcion: 'Crear proyecto con Angular CLI',
-      finalizado: true,
-      prioridad: 'Alta'
+      titulo: "Crear app tasklist",
+      descripcion: "Crear el proyecto inicial de Ionic con Angular",
+      finalizado: false,
+      prioridad: "Media"
     }
   ];
 
-  constructor() {
+  constructor() { 
     console.log(this.tasks);
+
+  }
+
+  addTask(){
+    console.log(this.newTaskStr)
+    const newTask : Task ={
+      id: Date.now(),
+      titulo : this.newTaskStr,
+      descripcion:'',
+      finalizado: false,
+      prioridad : 'Media'
+
+    }  
+    this.tasks.push(newTask)
+    this.newTaskStr='';
+
+}
+
+  ngOnInit() {
+  }
+
+  saludar() {
+    console.log("¡Hola, Ionic!");
   }
 
 }
